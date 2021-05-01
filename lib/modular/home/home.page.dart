@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:news_app/helper/app_routes.dart';
 import 'package:news_app/modular/app/bloc/app.bloc.dart';
 import 'package:news_app/modular/app/bloc/app.state.dart';
 import 'package:news_app/modular/app/service/business.service.dart';
@@ -39,7 +40,11 @@ class _HomePageState extends State<HomePage> {
                 "News App",
               ),
               actions: [
-                IconButton(icon: Icon(Icons.search), onPressed: () {}),
+                IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      Modular.to.pushNamed(AppRoutes.search);
+                    }),
                 IconButton(
                     icon: Icon(Icons.brightness_4_outlined),
                     onPressed: () {
