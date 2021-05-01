@@ -4,7 +4,7 @@ class AppState extends Equatable {
   final int currentIndex;
   final List<dynamic> business;
   final bool isDark;
-  AppState({this.currentIndex = 0, this.business, this.isDark = false});
+  AppState({this.currentIndex = 0, this.business, this.isDark = true});
   AppState copyWith({int currentIndex, List<dynamic> business, bool isDark}) =>
       AppState(
         currentIndex: currentIndex ?? this.currentIndex,

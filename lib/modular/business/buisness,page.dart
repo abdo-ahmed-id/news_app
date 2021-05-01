@@ -36,7 +36,7 @@ class BusinessPage extends StatelessWidget {
                                                 null
                                             ? state.business[index]
                                                 ['urlToImage']
-                                            : state.business[0]['urlToImage'],
+                                            : state.business[7]['urlToImage'],
                                       ),
                                       fit: BoxFit.cover),
                                 ),

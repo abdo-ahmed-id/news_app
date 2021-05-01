@@ -44,7 +44,6 @@ class _HomePageState extends State<HomePage> {
                     icon: Icon(Icons.brightness_4_outlined),
                     onPressed: () {
                       appBloc.themeMode();
-                      print(state.isDark);
                     })
               ],
             ),
