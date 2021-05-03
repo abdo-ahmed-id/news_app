@@ -10,6 +10,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Builders.systemInjector(Modular.get);
   await ModeProvider.init();
-  NewsProvider.init();
+  DioProvider.init();
   runApp(ModularApp(module: AppModule(), child: AppWidget()));
 }

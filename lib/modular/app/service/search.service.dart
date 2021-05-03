@@ -1,20 +1,16 @@
-import 'package:dio/dio.dart';
 import 'package:news_app/data/providers/news.provider.dart';
+import 'package:news_app/data/responses/articals.response.dart';
 
 class SearchService {
-  final NewsProvider _newsProvider;
-  List<dynamic> search = [];
+  final DioProvider _dioProvider;
 
-  SearchService(this._newsProvider);
-  Future<Response> get(String value) async {
-    return await _newsProvider.get('v2/everything', {
+  SearchService(this._dioProvider);
+  Future<ArticlesResponse> get(String value) async {
+    var response = await _dioProvider.get(url: 'v2/everything', query: {
       'q': '$value',
       'apiKey': 'b790b8164c89424a8138bfa5ddef5596',
-    }).then((value) {
-      search = value.data['articles'];
-    }).catchError((error) {
-      print(error.toString());
     });
+    return ArticlesResponse.fromJson(response.data);
   }
 }
 

@@ -3,13 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:news_app/helper/app_routes.dart';
+import 'package:news_app/helper/constants.dart';
 import 'package:news_app/modular/app/bloc/app.bloc.dart';
 import 'package:news_app/modular/app/bloc/app.state.dart';
-import 'package:news_app/modular/app/service/business.service.dart';
-import 'package:news_app/modular/app/service/sport.service.dart';
-import 'package:news_app/modular/business/buisness,page.dart';
-import 'package:news_app/modular/science/science.page.dart';
-import 'package:news_app/modular/sports/sport.page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,10 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AppBloc appBloc = Modular.get<AppBloc>();
-
-  BusinessService _businessService = Modular.get<BusinessService>();
-
-  SportService _sportService = Modular.get<SportService>();
 
   @override
   void initState() {
@@ -34,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<AppBloc, AppState>(
         bloc: appBloc,
         builder: (_, state) {
+          print('statelist${state.business.length}');
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -52,23 +45,19 @@ class _HomePageState extends State<HomePage> {
                     })
               ],
             ),
-            body: listPage[state.currentIndex],
+            body: IndexedStack(
+              index: state.currentIndex,
+              children: [
+                NewsList(list: state.business),
+                NewsList(list: state.sport),
+                NewsList(list: state.science),
+              ],
+            ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: state.currentIndex,
               items: listItems,
               onTap: (index) {
                 appBloc.onChanged(index);
-              },
-            ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () {
-                appBloc.businessGet();
-                appBloc.scienceGet();
-                appBloc.sportGet();
-                print(state.business.length);
-                print(_businessService.business.length);
-                print(_sportService.sport.length);
               },
             ),
           );
@@ -80,11 +69,5 @@ class _HomePageState extends State<HomePage> {
         icon: Icon(Icons.business_center), label: 'business'),
     BottomNavigationBarItem(icon: Icon(Icons.sports), label: 'sports'),
     BottomNavigationBarItem(icon: Icon(Icons.science), label: 'science'),
-  ];
-
-  List<Widget> listPage = [
-    BusinessPage(),
-    SportPage(),
-    SciencePage(),
   ];
 }

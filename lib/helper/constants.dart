@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:news_app/data/models/article.model.dart';
 import 'package:news_app/helper/app_routes.dart';
 
-class Constants {
-  static Widget buildNewsList({List list, bool isSearch = false}) {
+class NewsList extends StatelessWidget {
+  final List<ArticleModel> list;
+  final bool isSearch;
+  NewsList({this.list, this.isSearch = false});
+  @override
+  Widget build(BuildContext context) {
+    print('listLeanth${list.length}');
     return Padding(
         padding: const EdgeInsets.all(16.0),
         child: list.length < 1
@@ -19,7 +25,7 @@ class Constants {
                     child: InkWell(
                       onTap: () {
                         Modular.to.pushNamed(AppRoutes.webPage,
-                            arguments: list[index]['url']);
+                            arguments: list[index].url);
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -31,10 +37,9 @@ class Constants {
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                    list[index]['urlToImage'] != null
-                                        ? list[index]['urlToImage']
-                                        : list[3]['urlToImage'],
-                                  ),
+                                      list[index].urlToImage != null
+                                          ? list[index].urlToImage
+                                          : ''),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -51,7 +56,7 @@ class Constants {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      list[index]['title'],
+                                      list[index].title,
                                       // state.business['articles'][index]['title'],
                                       style:
                                           Theme.of(context).textTheme.headline1,
@@ -60,7 +65,7 @@ class Constants {
                                     ),
                                   ),
                                   Text(
-                                    list[index]['publishedAt'],
+                                    list[index].publishedAt,
                                     style: TextStyle(
                                         color: Colors.blueGrey,
                                         fontWeight: FontWeight.bold),
